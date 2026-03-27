@@ -4,3 +4,4 @@ langchain_openai
 pypdf
 python-dotenv
 ipykernel
+pymupdf
