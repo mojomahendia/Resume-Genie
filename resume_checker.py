@@ -152,6 +152,16 @@ def inject_styles() -> None:
             padding: 1.5rem;
             margin-bottom: 1.25rem;
         }
+        .hero-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.25rem;
+        }
+        .hero-text {
+            flex: 1;
+            min-width: 0;
+        }
         .hero-eyebrow {
             color: #c45a1a;
             font-size: 0.82rem;
@@ -236,7 +246,27 @@ def inject_styles() -> None:
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            flex: 0 0 auto;
+            width: 160px;
+            max-width: 30%;
+            padding: 0.65rem 0.85rem;
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(255, 248, 240, 0.95), rgba(248, 250, 255, 0.9));
+            border: 1px solid rgba(196, 90, 26, 0.16);
+        }
+        .logo-wrap img {
+            max-height: 92px;
+            object-fit: contain;
+        }
+        @media (max-width: 900px) {
+            .hero-flex {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-wrap {
+                width: 120px;
+                max-width: none;
+            }
         }
         [data-testid="stFileUploader"] {
             background: rgba(250, 247, 241, 0.9);
@@ -264,31 +294,24 @@ def inject_styles() -> None:
 
 
 def render_header() -> None:
-    left_col, right_col = st.columns([1.6, 1], gap="large")
-    with left_col:
-        st.markdown(
-            """
-            <div class="hero-card">
-                <div class="hero-eyebrow">AI Resume Review</div>
-                <div class="hero-title">Upload your resume and get actionable feedback.</div>
-                <p class="hero-copy">
-                    Review clarity, skills, positioning, and overall impact in one place.
-                    The app reads your resume, scores it, and turns the output into a structured report.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    with right_col:
-        st.markdown('<div class="hero-card logo-wrap">', unsafe_allow_html=True)
-        if LOGO_PATH.exists():
-            st.image(str(LOGO_PATH), use_container_width=True)
-        else:
-            st.markdown(
-                "<p class='hero-copy' style='text-align:center;'>Logo not found.</p>",
-                unsafe_allow_html=True,
-            )
+    st.markdown('<div class="hero-card"><div class="hero-flex"><div class="hero-text">', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="hero-eyebrow">AI Resume Review</div>
+        <div class="hero-title">Upload your resume and get actionable feedback.</div>
+        <p class="hero-copy">
+            Review clarity, skills, positioning, and overall impact in one place.
+            The app reads your resume, scores it, and turns the output into a structured report.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown("</div>", unsafe_allow_html=True)
+    if LOGO_PATH.exists():
+        st.markdown('<div class="logo-wrap">', unsafe_allow_html=True)
+        st.image(str(LOGO_PATH), width=110)
         st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div></div>", unsafe_allow_html=True)
 
 
 def render_summary(summary: str) -> None:
