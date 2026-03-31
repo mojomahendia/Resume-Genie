@@ -1,7 +1,7 @@
 [project]
 name = "resume-genie"
 version = "0.1.0"
-description = "Add your description here"
+description = "Beautiful Streamlit app for resume review, job matching, cover letter generation, and AI career coaching."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
